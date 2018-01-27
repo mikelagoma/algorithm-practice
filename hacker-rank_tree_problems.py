@@ -86,3 +86,62 @@ def topView(root):
         topView(root.left)
     else:
         topView(root.right)
+
+# https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.data (the value of the node)
+"""
+def levelOrder(root):
+    queue = list()
+    queue.append(root)
+    while len(queue) > 0:
+        root = queue.pop(0)
+        print root.data,
+        if root.left:
+            queue.append(root.left)
+        if root.right:
+            queue.append(root.right)
+
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.data (the value of the node)
+"""
+def levelOrder(root):
+    queue = list()
+    queue.append(root)
+    def traverse(queue):
+        if len(queue) <= 0:
+            return
+        root = queue.pop(0)
+        print root.data,
+        if root.left:
+            queue.append(root.left)
+        if root.right:
+            queue.append(root.right)
+        traverse(queue)
+    traverse(queue)
+
+# https://www.hackerrank.com/challenges/binary-search-tree-insertion/problem
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.data (the value of the node)"""
+
+def insert(r,val):
+    if val < r.data:
+        if not r.left:
+            r.left = Node(val)
+            return
+        insert(r.left,val)
+    if val > r.data:
+        if not r.right:
+            r.right = Node(val)
+            return
+        insert(r.right,val)
+    return r
