@@ -68,4 +68,21 @@ def height(root):
     if root.right:
         height(root.right)
     return mheight
-    
+
+#https://www.hackerrank.com/challenges/tree-top-view/problem
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.data (the value of the node)"""
+
+switch_directions = False
+def topView(root):
+    global switch_directions
+    print root.data,
+    if not root.left:
+        switch_directions = True
+    if not switch_directions:
+        topView(root.left)
+    else:
+        topView(root.right)
