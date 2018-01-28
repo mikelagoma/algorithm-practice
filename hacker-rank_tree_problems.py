@@ -145,3 +145,33 @@ def insert(r,val):
             return
         insert(r.right,val)
     return r
+
+    """class Node:
+    def __init__(self, freq,data):
+        self.freq= freq
+        self.data=data
+        self.left = None
+        self.right = None
+"""  
+
+# https://www.hackerrank.com/challenges/tree-huffman-decoding/problem      
+import sys
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+tree_root = None
+def decodeHuff(root , s):
+    global tree_root
+    if not tree_root:
+        tree_root = root
+    if len(s) <= 0:
+        sys.stdout.write(root.data)
+        return
+    if not root.left and not root.right:
+        sys.stdout.write(root.data)
+        decodeHuff(tree_root, s)
+    this_move = s[0]
+    s = s[1:]
+    if this_move == '0':
+        decodeHuff(root.left, s)
+    if this_move == '1':
+        decodeHuff(root.right, s)
+   #Enter Your Code Here
