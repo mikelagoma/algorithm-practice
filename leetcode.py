@@ -1,6 +1,7 @@
-# https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 #!/usr/bin/python
-class Solution:
+
+# https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
+class Solution1:
     digit_letter_map = {
         0 : [],
         1 : [],
@@ -109,9 +110,33 @@ class Twitter:
 # obj.follow(followerId,followeeId)
 # obj.unfollow(followerId,followeeId)
 
+# https://leetcode.com/problems/elimination-game/description/
+class Solution2:
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        numbers = [i+1 for i in range(n)]
+        start_from_left = True
+        while len(numbers) > 1:
+            print(numbers)
+            keep = list()
+            if not start_from_left:
+                numbers = list(reversed(numbers))
+            for idx, value in enumerate(numbers):
+                if idx % 2 == 1:
+                    keep.append(idx)
+            numbers = [numbers[idx] for idx in keep]
+            if not start_from_left:
+                numbers = list(reversed(numbers))
+            start_from_left = not start_from_left
+        return numbers[0]
+
 def main():
-    s = Solution()
-    print(s.letterCombinations('23'))
+    s = Solution2()
+    # print(s.letterCombinations('23'))
+    print(s.lastRemaining(5034))
 
 if __name__ == '__main__':
     main()
