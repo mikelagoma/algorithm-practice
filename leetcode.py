@@ -31,6 +31,84 @@ class Solution:
                 buildup = new_buildup
         return buildup
 
+
+# https://leetcode.com/problems/design-twitter/description/
+class Twitter:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        Args:
+            newsFeed : [
+                (userId, tweetId)
+            ]
+            following : {
+                "userId" : ["userId1", "userId2"]
+            }
+        """
+        self.newsFeed = list()
+        self.following = dict()
+
+    def postTweet(self, userId, tweetId):
+        """
+        Compose a new tweet.
+        :type userId: int
+        :type tweetId: int
+        :rtype: void
+        """
+        self.newsFeed.append((userId, tweetId))
+
+    def getNewsFeed(self, userId):
+        """
+        Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent.
+        :type userId: int
+        :rtype: List[int]
+        """
+        feed = list()
+        print(feed)
+        for tweet in list(reversed(self.newsFeed)):
+            if userId in self.following:
+                if (tweet[0] in self.following[userId]) or \
+                    (tweet[0] is userId):
+                    feed.append(tweet[1])
+            elif tweet[0] is userId:
+                feed.append(tweet[1])
+            if len(feed) == 10:
+                break
+        return feed
+
+    def follow(self, followerId, followeeId):
+        """
+        Follower follows a followee. If the operation is invalid, it should be a no-op.
+        :type followerId: int
+        :type followeeId: int
+        :rtype: void
+        """
+        if followerId in self.following:
+            if followeeId not in self.following[followerId]:
+                self.following[followerId].append(followeeId)
+        else:
+            self.following[followerId] = [followeeId]
+        
+
+    def unfollow(self, followerId, followeeId):
+        """
+        Follower unfollows a followee. If the operation is invalid, it should be a no-op.
+        :type followerId: int
+        :type followeeId: int
+        :rtype: void
+        """
+        if followerId in self.following:
+            if followeeId in self.following[followerId]:
+                self.following[followerId].remove(followeeId)
+
+# Your Twitter object will be instantiated and called as such:
+# obj = Twitter()
+# obj.postTweet(userId,tweetId)
+# param_2 = obj.getNewsFeed(userId)
+# obj.follow(followerId,followeeId)
+# obj.unfollow(followerId,followeeId)
+
 def main():
     s = Solution()
     print(s.letterCombinations('23'))
