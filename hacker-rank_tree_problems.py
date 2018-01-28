@@ -175,3 +175,37 @@ def decodeHuff(root , s):
     if this_move == '1':
         decodeHuff(root.right, s)
    #Enter Your Code Here
+
+
+# https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.data (the value of the node)
+"""
+def lca(root , v1 , v2):
+    path_one = [root]
+    path_two = [root]
+    def traverse(root, path, value):
+        if not path[-1].data == value and path[0].data != root.data:
+            path.append(root)
+        if root.data == value:
+            return path
+        elif path:
+            if path[-1].data == value:
+                return path
+        
+        if not path[-1].data == value:
+            if value > root.data:
+                traverse(root.right, path, value)
+            traverse(root.left, path, value)
+        return path
+    path_one = traverse(root, path_one, v1)
+    path_two = traverse(root, path_two, v2)
+    answer = root
+    for idx, val in enumerate(path_one):
+        if val != path_two[idx].data:
+            return answer
+        answer = val
+  #Enter your code here
