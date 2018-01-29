@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 class Solution1:
@@ -133,10 +133,65 @@ class Solution2:
             start_from_left = not start_from_left
         return numbers[0]
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution3:
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+         [-10,-3,0,5,9,10],
+         [-10,-3,0,9,10],
+         [-10,-3,5,9],
+        """
+        if not nums:
+            return
+        tree = [nums[len(nums) // 2]]
+        del nums[len(nums) // 2]
+        add_left = True
+        while nums:
+            print('tree: {}\nnums: {}'.format(tree, nums))
+            middle = len(nums) // 2
+            if add_left:
+                add_idx = middle // 2
+                tree.append(nums[add_idx])
+                del nums[add_idx]
+                add_left = not add_left
+                continue
+            add_idx = len(nums) - (middle // 2) - 1
+            tree.append(nums[add_idx])
+            del nums[add_idx]
+            add_left = not add_left
+        return self.array_to_tree(tree)
+
+    def array_to_tree(self, tree):
+        root = TreeNode(tree[0])
+        for tn in tree[1:]:
+            self.insert(root, tn)
+        return root
+
+    def insert(self, root, val):
+        if val < root.val:
+            if not root.left:
+                root.left = TreeNode(val)
+            else:
+                self.insert(root.left, val)
+        if val > root.val:
+            if not root.right:
+                root.right = TreeNode(val)
+            else:
+                self.insert(root.right, val)
+
 def main():
-    s = Solution2()
+    s = Solution3()
     # print(s.letterCombinations('23'))
-    print(s.lastRemaining(5034))
+    # print(s.lastRemaining(5034))
+    print(s.sortedArrayToBST([-10,-3,0,5,9]))
 
 if __name__ == '__main__':
     main()
