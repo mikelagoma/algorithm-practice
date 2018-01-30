@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import binary_tree
 
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 class Solution1:
@@ -207,6 +208,22 @@ class Solution4:
                 count += num_stones[s]
         return count
 
+# https://leetcode.com/problems/maximum-binary-tree/description/
+class Solution5:
+    def constructMaximumBinaryTree(self, nums, root=None):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+        if not nums:
+            return
+        print(max(nums))
+        root = binary_tree.TreeNode(max(nums))
+        max_idx = nums.index(root.val)
+        root.left = self.constructMaximumBinaryTree(nums[:max_idx], root)
+        root.right = self.constructMaximumBinaryTree(nums[max_idx+1:], root)
+        return root
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -214,8 +231,10 @@ def main():
     # print(s2.lastRemaining(5034))
     # s3 = Solution3()
     # print(s3.sortedArrayToBST([-10,-3,0,5,9]))
-    s4 = Solution4()
-    print(s4.numJewelsInStones("aA", "aAAbbbb"))
+    # s4 = Solution4()
+    # print(s4.numJewelsInStones("aA", "aAAbbbb"))
+    s5 = Solution5()
+    s5.constructMaximumBinaryTree([3,2,1,6,0,5])
 
 if __name__ == '__main__':
     main()
