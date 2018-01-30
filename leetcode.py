@@ -133,6 +133,7 @@ class Solution2:
             start_from_left = not start_from_left
         return numbers[0]
 
+# https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -187,11 +188,35 @@ class Solution3:
             else:
                 self.insert(root.right, val)
 
+# https://leetcode.com/problems/jewels-and-stones/description/
+class Solution4:
+    def numJewelsInStones(self, J, S):
+        """
+        :type J: str
+        :type S: str
+        :rtype: int
+        """
+        if not J or not S:
+            return 0
+        count = 0
+        num_stones = {}
+        for s in S:
+            num_stones[s] = num_stones.get(s, 0) + 1
+        for s in num_stones:
+            if s in J:
+                count += num_stones[s]
+        return count
+
 def main():
-    s = Solution3()
-    # print(s.letterCombinations('23'))
-    # print(s.lastRemaining(5034))
-    print(s.sortedArrayToBST([-10,-3,0,5,9]))
+    # s1 = Solution1()
+    # print(s1.letterCombinations('23'))
+    # s2 = Solution2()
+    # print(s2.lastRemaining(5034))
+    # s3 = Solution3()
+    # print(s3.sortedArrayToBST([-10,-3,0,5,9]))
+    s4 = Solution4()
+    print(s4.numJewelsInStones("aA", "aAAbbbb"))
 
 if __name__ == '__main__':
     main()
+
