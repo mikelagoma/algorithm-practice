@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import binary_tree
+from collections import Counter
 
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 class Solution1:
@@ -224,6 +225,48 @@ class Solution5:
         root.right = self.constructMaximumBinaryTree(nums[max_idx+1:], root)
         return root
 
+# https://leetcode.com/problems/partition-labels/description/
+class Solution6:
+    def partition_labels(self, S):
+        """
+        :type S: str
+        :rtype: List[int]
+        """
+        partitions = []
+        for s in S:
+            # print(partitions)
+            print(s)
+            break_out = False
+            for i, p in enumerate(partitions):
+                if s in p:
+                    partitions = self.combine_prev_partitions(partitions, i)
+                    print('got these: {}'.format(partitions))
+                    partitions[i][s] = partitions[i][s] + 1
+                    print('BREAKING')
+                    break_out = True
+                    break
+            if break_out:
+                break_out = False
+                continue
+            print('APPENDING {}'.format(s))
+            partitions.append({s : 1})
+        return [sum(p.values()) for p in partitions]
+
+    def combine_prev_partitions(self, partitions, i):
+        new_partitions = partitions[0:i]
+        print('using these: {} through index {}'.format(new_partitions, i))
+        # new_partition = {}
+        # for p in partitions[i:]:
+        #     new_partition = {**new_partition, **p}
+        # print(new_partition)
+        new_partition = dict(sum(
+            (Counter(dict(x)) for x in partitions[i:]),
+            Counter()
+            ))
+        new_partitions.append(new_partition)
+        print('returning these: {}'.format(new_partitions))
+        return new_partitions
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -233,8 +276,10 @@ def main():
     # print(s3.sortedArrayToBST([-10,-3,0,5,9]))
     # s4 = Solution4()
     # print(s4.numJewelsInStones("aA", "aAAbbbb"))
-    s5 = Solution5()
-    s5.constructMaximumBinaryTree([3,2,1,6,0,5])
+    # s5 = Solution5()
+    # s5.constructMaximumBinaryTree([3,2,1,6,0,5])
+    s6 = Solution6()
+    print(s6.partition_labels("ababcbacadefegdehijhklij"))
 
 if __name__ == '__main__':
     main()
