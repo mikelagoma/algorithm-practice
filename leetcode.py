@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import binary_tree
+import binary_tree as bt
 from collections import Counter
 
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
@@ -267,6 +267,41 @@ class Solution6:
         print('returning these: {}'.format(new_partitions))
         return new_partitions
 
+# https://leetcode.com/problems/merge-two-binary-trees/description/
+class Solution7:
+    def mergeTrees(self, t1, t2):
+        """
+        :type t1: TreeNode
+        :type t2: TreeNode
+        :rtype: TreeNode
+        """
+        if not t1 and not t2:
+            return
+        root = bt.TreeNode(0)
+        if t1:
+            root = self.traverse(root, t1)
+        print('at value {} before second tree'.format(root.val))
+        if t2:
+            root = self.traverse(root, t2)
+        return root
+
+    def traverse(self, root, t):
+        if not t:
+            return
+        print(t.val)
+        print(root.val)
+        root.val = root.val + t.val
+        print(root.val)
+        if t.left:
+            if not root.left:
+                root.left = bt.TreeNode(0)
+            self.traverse(root.left, t.left)
+        if t.right:
+            if not root.right:
+                root.right = bt.TreeNode(0)
+            self.traverse(root.right, t.right)
+        return root
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -278,8 +313,10 @@ def main():
     # print(s4.numJewelsInStones("aA", "aAAbbbb"))
     # s5 = Solution5()
     # s5.constructMaximumBinaryTree([3,2,1,6,0,5])
-    s6 = Solution6()
-    print(s6.partition_labels("ababcbacadefegdehijhklij"))
+    # s6 = Solution6()
+    # print(s6.partition_labels("ababcbacadefegdehijhklij"))
+    s7 = Solution7()
+    s7.mergeTrees(bt.TreeNode(4), bt.TreeNode(4))
 
 if __name__ == '__main__':
     main()
