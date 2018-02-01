@@ -360,6 +360,39 @@ class Solution8:
         self.trimBST(root.right, L, R)
         return root
 
+# https://leetcode.com/problems/island-perimeter/description/
+class Solution9:
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        perimeter = 0
+        for o in range(len(grid)):
+            for i in range(len(grid[o])):
+                if grid[o][i] == 1:
+                    if i == 0:
+                        perimeter += 1
+                    elif len(grid[o]) > 1:
+                        if grid[o][i-1] == 0:
+                            perimeter += 1
+                    if i == len(grid[o])-1:
+                        perimeter += 1
+                    elif len(grid[o]) > 1:
+                        if grid[o][i+1] == 0:
+                            perimeter += 1
+                    if o == 0:
+                        perimeter += 1
+                    elif len(grid) > 1:
+                        if grid[o-1][i] == 0:
+                            perimeter += 1
+                    if o == len(grid)-1:
+                        perimeter += 1
+                    elif len(grid) > 1:
+                        if grid[o+1][i] == 0:
+                            perimeter += 1
+        return perimeter
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -373,8 +406,16 @@ def main():
     # s5.constructMaximumBinaryTree([3,2,1,6,0,5])
     # s6 = Solution6()
     # print(s6.partition_labels("ababcbacadefegdehijhklij"))
-    s7 = Solution7()
-    s7.mergeTrees(bt.TreeNode(4), bt.TreeNode(4))
+    # s7 = Solution7()
+    # s7.mergeTrees(bt.TreeNode(4), bt.TreeNode(4))
+    s9 = Solution9()
+    print(s9.islandPerimeter(
+        # [[1],[0]]
+            [[0,1,0,0],
+             [1,1,1,0],
+             [0,1,0,0],
+             [1,1,0,0]]
+         ))
 
 if __name__ == '__main__':
     main()
