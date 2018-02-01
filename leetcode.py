@@ -302,6 +302,64 @@ class Solution7:
             self.traverse(root.right, t.right)
         return root
 
+# https://leetcode.com/problems/trim-a-binary-search-tree/description/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution8:
+    def trimBST(self, root, L, R):
+        """
+        :type root: TreeNode
+        :type L: int
+        :type R: int
+        :rtype: TreeNode
+        """
+        if not root:
+            return
+        print(root.val)
+        if root.val == L:
+            root.left = None
+        elif root.val == R:
+            root.right = None
+        if root.val < L or root.val > R:
+            if root.left:
+                if root.right:
+                    root.left.right = root.right
+                root = root.left
+            elif root.right:
+                root = root.right
+            else:
+                return None
+            self.trimBST(root, L, R)
+        if root.left:
+            if root.left.val < L:
+                if root.left.left:
+                    if root.left.right:
+                        root.left.left.right = root.left.right
+                    root.left = root.left.left
+                elif root.left.right:
+                    root.left = root.left.right
+                else:
+                    root.left = None
+            
+        if root.right:
+            if root.right.val > R:
+                if root.right.left:
+                    if root.right.right:
+                        root.right.left.right = root.right.right
+                    root.right = root.right.left
+                elif root.right.right:
+                    root.right = root.right.right
+                else:
+                    root.right = None
+        self.trimBST(root.left, L, R)
+        self.trimBST(root.right, L, R)
+        return root
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
