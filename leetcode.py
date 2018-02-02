@@ -393,6 +393,39 @@ class Solution9:
                             perimeter += 1
         return perimeter
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+# https://leetcode.com/problems/average-of-levels-in-binary-tree/description/
+class Solution10:
+    def averageOfLevels(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[float]
+        """
+        result = [[]]
+        queue = []
+        queue.append(root)
+        queue.append(None)
+        while(len(queue) > 0):
+            node = queue.pop(0)
+            if node == None:
+                if len(queue) == 0:
+                    break
+                queue.append(None)
+                result.append([])
+                continue
+            print(node.val)
+            result[-1].append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return [sum(l)/len(l) for l in result]
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -408,14 +441,16 @@ def main():
     # print(s6.partition_labels("ababcbacadefegdehijhklij"))
     # s7 = Solution7()
     # s7.mergeTrees(bt.TreeNode(4), bt.TreeNode(4))
-    s9 = Solution9()
-    print(s9.islandPerimeter(
-        # [[1],[0]]
-            [[0,1,0,0],
-             [1,1,1,0],
-             [0,1,0,0],
-             [1,1,0,0]]
-         ))
+    # s9 = Solution9()
+    # print(s9.islandPerimeter(
+    #     # [[1],[0]]
+    #         [[0,1,0,0],
+    #          [1,1,1,0],
+    #          [0,1,0,0],
+    #          [1,1,0,0]]
+    #      ))
+    s10 = Solution10()
+    print(s10.averageOfLevels(bt.TreeNode(4)))
 
 if __name__ == '__main__':
     main()
