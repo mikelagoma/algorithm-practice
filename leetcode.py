@@ -426,6 +426,24 @@ class Solution10:
                 queue.append(node.right)
         return [sum(l)/len(l) for l in result]
 
+# https://leetcode.com/problems/single-number/description/
+class Solution11:
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        is_new = True
+        if not nums:
+            return
+        nums.sort()
+        for idx, val in enumerate(nums):
+            if idx == len(nums) - 1:
+                return val
+            if is_new and (val != nums[idx+1]):
+                return val
+            is_new = not is_new
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -449,8 +467,10 @@ def main():
     #          [0,1,0,0],
     #          [1,1,0,0]]
     #      ))
-    s10 = Solution10()
-    print(s10.averageOfLevels(bt.TreeNode(4)))
+    # s10 = Solution10()
+    # print(s10.averageOfLevels(bt.TreeNode(4)))
+    s11 = Solution11()
+    print(s11.singleNumber([1, 2, 3, 1, 4, 2, 3]))
 
 if __name__ == '__main__':
     main()
