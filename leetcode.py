@@ -451,6 +451,8 @@ class Solution12:
         :type s: str
         :rtype: int
         """
+        if len(set(list(s))) == 1:
+            return sum([i for i in range(len(s)+1)])
         count = 0
         for l_idx, l_l in enumerate(s):
             for r_idx, r_l in reversed(list(enumerate(s))):
