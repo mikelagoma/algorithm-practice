@@ -444,6 +444,29 @@ class Solution11:
                 return val
             is_new = not is_new
 
+# https://leetcode.com/problems/palindromic-substrings/description/
+class Solution12:
+    def countSubstrings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        count = 0
+        for l_idx, l_l in enumerate(s):
+            for r_idx, r_l in reversed(list(enumerate(s))):
+                if r_idx <= l_idx:
+                    break
+                if l_l == r_l:
+                    if self.is_palindrome(s[l_idx:r_idx+1]):
+                        count += 1
+        return count + len(s)
+
+    def is_palindrome(self, s):
+        for idx in range(0, len(s) // 2):
+            if s[idx] != s[len(s) - 1 - idx]:
+                return False
+        return True
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -469,8 +492,13 @@ def main():
     #      ))
     # s10 = Solution10()
     # print(s10.averageOfLevels(bt.TreeNode(4)))
-    s11 = Solution11()
-    print(s11.singleNumber([1, 2, 3, 1, 4, 2, 3]))
+    # s11 = Solution11()
+    # print(s11.singleNumber([1, 2, 3, 1, 4, 2, 3]))
+    s12 = Solution12()
+    print(s12.is_palindrome("aba"))
+    print(s12.is_palindrome("abaa"))
+    print(s12.countSubstrings("abacacaaaccbbbb"))
+    print(s12.countSubstrings("aaa"))
 
 if __name__ == '__main__':
     main()
