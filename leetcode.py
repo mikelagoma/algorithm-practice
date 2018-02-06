@@ -469,6 +469,25 @@ class Solution12:
                 return False
         return True
 
+# https://leetcode.com/problems/find-pivot-index/description/
+class Solution13:
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        sum_nums = sum(nums)
+        left_sum = 0
+        if sum(nums[1:]) == 0:
+            return 0
+        for idx, val in enumerate(nums[1:], start=1):
+            left_sum += nums[idx-1]
+            right_sum = sum_nums - left_sum - val
+            if left_sum == right_sum:
+                return idx
+        return -1
+
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -496,11 +515,13 @@ def main():
     # print(s10.averageOfLevels(bt.TreeNode(4)))
     # s11 = Solution11()
     # print(s11.singleNumber([1, 2, 3, 1, 4, 2, 3]))
-    s12 = Solution12()
-    print(s12.is_palindrome("aba"))
-    print(s12.is_palindrome("abaa"))
-    print(s12.countSubstrings("abacacaaaccbbbb"))
-    print(s12.countSubstrings("aaa"))
+    # s12 = Solution12()
+    # print(s12.is_palindrome("aba"))
+    # print(s12.is_palindrome("abaa"))
+    # print(s12.countSubstrings("abacacaaaccbbbb"))
+    # print(s12.countSubstrings("aaa"))
+    s13 = Solution13()
+    print(s13.pivotIndex([-1, -1, -1, -1, -1, 0]))
 
 if __name__ == '__main__':
     main()
