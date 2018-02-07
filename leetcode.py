@@ -487,6 +487,67 @@ class Solution13:
                 return idx
         return -1
 
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+# https://leetcode.com/problems/swap-nodes-in-pairs/description/
+class Solution14:
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return None
+        node = head
+        count = 0
+        while node:
+            count += 1
+            if count > 4:
+                break
+            one = None
+            two = None
+            three = None
+            print(node.val)
+            if not node:
+                return
+            if node.next:
+                if node.next.next:
+                    three = node.next.next
+                two = node.next
+                node = two
+            else:
+                node = one
+            if node:
+                print("PRINTING LIST!!!")
+                print(node.val)
+                if node.next:
+                    print(node.next.val)
+                    if node.next.next:
+                        print(node.next.next.val)
+                        if node.next.next.next:
+                            print(node.next.next.val)
+            if one:
+                if two:
+                    print("have 2!")
+                    if three:
+                        print("have 3!")
+                        node = three
+                        two.next = three
+                    else:
+                        node = None
+                    two.next = one
+                else:
+                    node = None
+            else: 
+                "no node"
+                node = None
+            if node == None:
+                break
+        return head
 
 def main():
     # s1 = Solution1()
@@ -520,8 +581,32 @@ def main():
     # print(s12.is_palindrome("abaa"))
     # print(s12.countSubstrings("abacacaaaccbbbb"))
     # print(s12.countSubstrings("aaa"))
-    s13 = Solution13()
-    print(s13.pivotIndex([-1, -1, -1, -1, -1, 0]))
+    # s13 = Solution13()
+    # print(s13.pivotIndex([-1, -1, -1, -1, -1, 0]))
+    one = ListNode(1)
+    two = ListNode(2)
+    three = ListNode(3)
+    four = ListNode(4)
+    # five = ListNode(5)
+    one.next = two
+    two.next = three
+    three.next = four
+    four.next = None
+    # four.next = five
+    # five.next = None
+    s14 = Solution14()
+    head = s14.swapPairs(one)
+    # head = s14.swapPairs([1])
+    print('Final answer:\n{}'.format(head.val))
+    if head.next:
+        print(head.next.val)
+        if head.next.next:
+            print(head.next.next.val)
+            if head.next.next.next:
+                print(head.next.next.next.val)
+                if head.next.next.next.next:
+                    print(head.next.next.next.next.val)
+
 
 if __name__ == '__main__':
     main()
