@@ -493,7 +493,7 @@ class ListNode:
         self.val = x
         self.next = None
 
-# https://leetcode.com/problems/swap-nodes-in-pairs/description/
+# ehttps://leetcode.com/problems/swap-nodes-in-pairs/description/
 class Solution14:
     def swapPairs(self, head):
         """
@@ -549,6 +549,37 @@ class Solution14:
                 break
         return head
 
+# https://leetcode.com/problems/reverse-linked-list/description/
+class Solution15:
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        # def traverse(prev, curr):
+        #     traverse.count +=1
+        #     if traverse.count == 10:
+        #         return
+        #     if not curr.next:
+        #         head = curr
+        #         return
+        #     curr.next = traverse(curr, curr.next)
+        #     return prev
+        # traverse.count = 0
+        # head = traverse(head, head.next)
+        if not head:
+            return None
+        curr_node = head
+        prev_node = curr_node
+        while curr_node:
+            next_node = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
+            curr_node = next_node
+        head.next = None
+        head = prev_node
+        return head
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -594,8 +625,10 @@ def main():
     four.next = None
     # four.next = five
     # five.next = None
-    s14 = Solution14()
-    head = s14.swapPairs(one)
+    # s14 = Solution14()
+    s15 = Solution15()
+    # head = s14.swapPairs(one)
+    head = s15.reverseList(one)
     # head = s14.swapPairs([1])
     print('Final answer:\n{}'.format(head.val))
     if head.next:
