@@ -580,6 +580,40 @@ class Solution15:
         head = prev_node
         return head
 
+# https://leetcode.com/problems/queue-reconstruction-by-height/description/
+class Solution16:
+    def reconstructQueue(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        self.people = people
+        i_from = 0
+        while i_from < len(people) - 2:
+            print(self.people)
+            count = self.people[i_from][1]
+            height = self.people[i_from][0]
+            if count == 0 and i_from == 0:
+                i_from += 1
+            for i_to, val in enumerate(self.people):
+                if i_to == i_from:
+                    continue
+                if val[0] >= height:
+                    if count == 0:
+                        print('swapping {} to {}'.format(i_from, i_to))
+                        self.swap(i_from, i_to)
+                    count = count - 1
+            i_from += 1
+
+
+    def swap(self, a, b):
+        print(a, b)
+        print(self.people[a])
+        print(self.people[b])
+        self.people[a], self.people[b] = self.people[b], self.people[a]
+
+
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -625,22 +659,25 @@ def main():
     four.next = None
     # four.next = five
     # five.next = None
-    # s14 = Solution14()
-    s15 = Solution15()
-    # head = s14.swapPairs(one)
-    head = s15.reverseList(one)
-    # head = s14.swapPairs([1])
-    print('Final answer:\n{}'.format(head.val))
-    if head.next:
-        print(head.next.val)
-        if head.next.next:
-            print(head.next.next.val)
-            if head.next.next.next:
-                print(head.next.next.next.val)
-                if head.next.next.next.next:
-                    print(head.next.next.next.next.val)
+    # # s14 = Solution14()
+    # s15 = Solution15()
+    # # head = s14.swapPairs(one)
+    # head = s15.reverseList(one)
+    # # head = s14.swapPairs([1])
+    # print('Final answer:\n{}'.format(head.val))
+    # if head.next:
+    #     print(head.next.val)
+    #     if head.next.next:
+    #         print(head.next.next.val)
+    #         if head.next.next.next:
+    #             print(head.next.next.next.val)
+    #             if head.next.next.next.next:
+    #                 print(head.next.next.next.next.val)
+    s16 = Solution16()
+    print(s16.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]))
 
 
 if __name__ == '__main__':
     main()
+
 
