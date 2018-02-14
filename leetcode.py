@@ -636,6 +636,29 @@ class Solution17:
         l[a], l[b] = l[b], l[a]
 
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+# https://leetcode.com/problems/invert-binary-tree/description/
+class Solution18:
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if not root:
+            return
+        if not root.left and not root.right:
+            return root
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        root.left, root.right = root.right, root.left
+        return root
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
