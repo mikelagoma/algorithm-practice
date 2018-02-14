@@ -612,6 +612,28 @@ class Solution16:
         print(self.people[b])
         self.people[a], self.people[b] = self.people[b], self.people[a]
 
+# https://leetcode.com/problems/move-zeroes/description/
+class Solution17:
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        idx = 0
+        end = len(nums)
+        while idx < end:
+            if nums[idx] == 0:
+                zero_idx = idx
+                for idx in range(zero_idx, end):
+                    if nums[idx] != 0:
+                        self.swap(nums, zero_idx, idx)
+                        idx = 0
+                        break
+            idx += 1
+        return nums
+
+    def swap(self, l, a, b):
+        l[a], l[b] = l[b], l[a]
 
 
 def main():
@@ -673,8 +695,10 @@ def main():
     #             print(head.next.next.next.val)
     #             if head.next.next.next.next:
     #                 print(head.next.next.next.next.val)
-    s16 = Solution16()
-    print(s16.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]))
+    # s16 = Solution16()
+    # print(s16.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]))
+    s17 = Solution17()
+    print(s17.moveZeroes([0, 1, 0, 3, 12]))
 
 
 if __name__ == '__main__':
