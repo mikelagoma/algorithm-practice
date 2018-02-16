@@ -659,6 +659,23 @@ class Solution18:
         root.left, root.right = root.right, root.left
         return root
 
+# https://leetcode.com/problems/product-of-array-except-self/description/
+class Solution19:
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        out = []
+        so_far = 1
+        for n in nums:
+            for i, o in enumerate(out):
+                out[i] = o * n
+            out.append(1*so_far)
+            so_far = so_far * n
+        return out
+        
+
 def main():
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
@@ -720,8 +737,11 @@ def main():
     #                 print(head.next.next.next.next.val)
     # s16 = Solution16()
     # print(s16.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]))
-    s17 = Solution17()
-    print(s17.moveZeroes([0, 1, 0, 3, 12]))
+    # s17 = Solution17()
+    # print(s17.moveZeroes([0, 1, 0, 3, 12]))
+    s19 = Solution19()
+    print(s19.productExceptSelf([1, 2, 3, 4]))
+    print(s19.productExceptSelf([4, 2, 1, 3]))
 
 
 if __name__ == '__main__':
