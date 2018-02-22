@@ -674,7 +674,7 @@ class Solution19:
             out.append(1*so_far)
             so_far = so_far * n
         return out
-       
+
 # https://leetcode.com/problems/majority-element/description/
 class Solution20:
     def majorityElement(self, nums):
@@ -695,7 +695,40 @@ class Solution20:
                 result = k
         return result
 
+# https://leetcode.com/problems/top-k-frequent-elements/description/
+class Solution21:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        counts = {}
+        for num in nums:
+            counts[num] = counts.get(num, 0) + 1
+        topk = []
+        for key, value in counts.items():
+            if len(topk) < k:
+                topk.append(key)
+            else:
+                print('list of indeces access {}'.format(topk))
+                counts_topk = [c for k, c in counts.items() if k in topk]
+                print('counts of topk so far {}'.format(counts_topk))
+                min_val = min(counts_topk)
+                if value > min_val:
+                    for idx, tk in enumerate(topk):
+                        if min_val == counts[tk]:
+                            topk[idx] = key
+                            break
+        print(counts)
+        return topk
+        
+
+
+
 def main():
+    s21 = Solution21()
+    print(s21.topKFrequent([6,0,1,4,9,7,-3,1,-4,-8,4,-7,-3,3,2,-3,9,5,-4,0], 6))
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
     # s2 = Solution2()
@@ -761,8 +794,8 @@ def main():
     # s19 = Solution19()
     # print(s19.productExceptSelf([1, 2, 3, 4]))
     # print(s19.productExceptSelf([4, 2, 1, 3]))
-    s20 = Solution20()
-    print(s20.majorityElement([2, 2, 3, 3, 3, 4, 4, 3, 4, 2]))
+    # s20 = Solution20()
+    # print(s20.majorityElement([2, 2, 3, 3, 3, 4, 4, 3, 4, 2]))
 
 
 if __name__ == '__main__':
