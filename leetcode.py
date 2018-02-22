@@ -674,7 +674,26 @@ class Solution19:
             out.append(1*so_far)
             so_far = so_far * n
         return out
-        
+       
+# https://leetcode.com/problems/majority-element/description/
+class Solution20:
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # If 1 exists, return it
+        # If 2 exist, they have to be the same!
+        if len(nums) <= 2:
+            return nums[0]
+        count = {}
+        for num in nums:
+            count[num] = count.get(num, 0) + 1
+        result = nums[0]
+        for k, v in count.items():
+            if v > count[result]:
+                result = k
+        return result
 
 def main():
     # s1 = Solution1()
@@ -739,9 +758,11 @@ def main():
     # print(s16.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]))
     # s17 = Solution17()
     # print(s17.moveZeroes([0, 1, 0, 3, 12]))
-    s19 = Solution19()
-    print(s19.productExceptSelf([1, 2, 3, 4]))
-    print(s19.productExceptSelf([4, 2, 1, 3]))
+    # s19 = Solution19()
+    # print(s19.productExceptSelf([1, 2, 3, 4]))
+    # print(s19.productExceptSelf([4, 2, 1, 3]))
+    s20 = Solution20()
+    print(s20.majorityElement([2, 2, 3, 3, 3, 4, 4, 3, 4, 2]))
 
 
 if __name__ == '__main__':
