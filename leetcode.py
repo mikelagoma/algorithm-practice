@@ -722,13 +722,52 @@ class Solution21:
                             break
         print(counts)
         return topk
-        
+
+
+class Solution22:
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        sum1, sum2 = self.traverse(root)
+        print(sum1)
+        print(sum2)
+        return max(sum1, sum2)
+
+
+    def traverse(self, root):
+        if not root:
+            return 0, 0
+        sum1_left, sum2_left = self.traverse(root.left)
+        sum1_right, sum2_right = self.traverse(root.right)
+        sum1 = max(sum1_left, sum2_left) + max(sum1_right, sum2_right)
+        sum2 = root.val + sum1_right + sum1_left
+        return sum1, sum2
+        # self.dfs(root.left)
+        # if self.flip:
+        #     self.sum1 += root.val
+        # else:
+        #     self.sum2 += root.val
+        # self.flip = not self.flip
+        # self.dfs(root.right)
 
 
 
 def main():
-    s21 = Solution21()
-    print(s21.topKFrequent([6,0,1,4,9,7,-3,1,-4,-8,4,-7,-3,3,2,-3,9,5,-4,0], 6))
+    s22 = Solution22()
+    root = bt.TreeNode(3)
+    root.left = bt.TreeNode(2)
+    root.left.right = bt.TreeNode(3)
+    root.right = bt.TreeNode(3)
+    root.right.right = bt.TreeNode(1)
+    root = bt.TreeNode(1)
+    root.left = bt.TreeNode(2)
+    root.right = bt.TreeNode(3)
+    print(s22.rob(root))
+
+    # s21 = Solution21()
+    # print(s21.topKFrequent([6,0,1,4,9,7,-3,1,-4,-8,4,-7,-3,3,2,-3,9,5,-4,0], 6))
     # s1 = Solution1()
     # print(s1.letterCombinations('23'))
     # s2 = Solution2()
