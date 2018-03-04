@@ -786,15 +786,37 @@ class Solution24:
         # matrix = rotated_matrix[:]
         print(matrix)
 
+# https://leetcode.com/problems/maximum-subarray/description/
+class Solution25:
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        max_sum = min(nums)
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        for size in range(1, len(nums) + 1):
+            for idx in range(len(nums) + 1 - size):
+                this_sum = sum(nums[idx:idx+size])
+                if this_sum > max_sum:
+                    max_sum = this_sum
+        return max_sum
+
 def main():
-    s24 = Solution24()
-    s24.rotate([
-  [ 5, 1, 9,11],
-  [ 2, 4, 8,10],
-  [13, 3, 6, 7],
-  [15,14,12,16]
-])
-    s24.rotate([[1,2,3],[4,5,6],[7,8,9]])
+    s25 = Solution25()
+    # print(s25.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+    print(s25.maxSubArray([-2,1]))
+#     s24 = Solution24()
+#     s24.rotate([
+#   [ 5, 1, 9,11],
+#   [ 2, 4, 8,10],
+#   [13, 3, 6, 7],
+#   [15,14,12,16]
+# ])
+#     s24.rotate([[1,2,3],[4,5,6],[7,8,9]])
     # s23 = Solution23()
     # print(s23.subsets([1, 2, 3]))
     # s22 = Solution22()
