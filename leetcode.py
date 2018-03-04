@@ -765,9 +765,38 @@ class Solution23:
         self.traverse(portion, size+1)
         self.traverse(portion + str(self.nums[size]), size+1)
 
+# https://leetcode.com/problems/rotate-image/description/
+class Solution24:
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        size = len(matrix)
+        matrix = list(reversed(matrix))
+        # rotated_matrix = []
+        for i in range(size):
+            # rotated_matrix.append([])
+            for j in range(i+1, size):
+                temp = matrix[i][j] 
+                matrix[i][j] = matrix[j][i]
+                matrix[j][i] = temp
+        #     for j in range(size):
+        #         rotated_matrix[i].append(matrix[size - j - 1][i])
+        # matrix = rotated_matrix[:]
+        print(matrix)
+
 def main():
-    s23 = Solution23()
-    print(s23.subsets([1, 2, 3]))
+    s24 = Solution24()
+    s24.rotate([
+  [ 5, 1, 9,11],
+  [ 2, 4, 8,10],
+  [13, 3, 6, 7],
+  [15,14,12,16]
+])
+    s24.rotate([[1,2,3],[4,5,6],[7,8,9]])
+    # s23 = Solution23()
+    # print(s23.subsets([1, 2, 3]))
     # s22 = Solution22()
     # root = bt.TreeNode(3)
     # root.left = bt.TreeNode(2)
