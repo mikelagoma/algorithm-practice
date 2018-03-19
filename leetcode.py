@@ -805,10 +805,60 @@ class Solution25:
                     max_sum = this_sum
         return max_sum
 
+#https://leetcode.com/problems/valid-parentheses/description/
+class Solution26:
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        match = {
+            ')' : '(',
+            '}' : '{',
+            ']' : '['
+        }
+        # parens = {}
+        # for p in s:
+        #     # print(p)
+        #     # print(parens)
+        #     if p in ['[', '(', '{']:
+        #         parens[p] = parens.get(p, 0) + 1
+        #         continue
+        #     p = match[p]
+        #     if p not in parens:
+        #         print('got closing without opening')
+        #         return False
+        #     elif parens[p] == 0:
+        #         print('closing without any opening left')
+        #         return False
+        #     else:
+        #         parens[p] = parens[p] - 1
+        # for p in parens:
+        #     if parens[p] > 0:
+        #         print('still some opening left')
+        #         return False
+        # return True
+        stack = []
+        for p in s:
+            if p in match.values():
+                stack.append(p)
+                continue
+            if len(stack) == 0:
+                return False
+            pop = stack.pop()
+            if pop != match[p]:
+                return False
+        if len(stack) != 0:
+            return False
+        return True
+
 def main():
-    s25 = Solution25()
-    # print(s25.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
-    print(s25.maxSubArray([-2,1]))
+    s26 = Solution26()
+    print(s26.isValid('([[[()()}][]]])'))
+    # ([[[()(){}][]]])
+    # s25 = Solution25()
+    # # print(s25.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+    # print(s25.maxSubArray([-2,1]))
 #     s24 = Solution24()
 #     s24.rotate([
 #   [ 5, 1, 9,11],
