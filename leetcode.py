@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import binary_tree as bt
 from collections import Counter
+import itertools
 
 # https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 class Solution1:
@@ -852,9 +853,31 @@ class Solution26:
             return False
         return True
 
+#https://leetcode.com/problems/generate-parentheses/description/
+class Solution27:
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        def buildUp(parens, left, right):
+            if left == 0 and right == 0:
+                buildUp.res.append(parens)
+            if left > 0:
+                buildUp(parens + "(", left - 1, right)
+            if right > left:
+                buildUp(parens + ")", left, right - 1)
+        left = n
+        right = n
+        buildUp.res = []
+        buildUp("", left, right)
+        return buildUp.res
+
 def main():
-    s26 = Solution26()
-    print(s26.isValid('([[[()()}][]]])'))
+    s27 = Solution27()
+    print(s27.generateParenthesis(4))
+    # s26 = Solution26()
+    # print(s26.isValid('([[[()()}][]]])'))
     # ([[[()(){}][]]])
     # s25 = Solution25()
     # # print(s25.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
